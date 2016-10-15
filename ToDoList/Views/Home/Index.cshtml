@@ -1,0 +1,35 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
+</head>
+<body>
+<div align="center">
+    <div>
+        @using (Ajax.BeginForm("AddNote", new AjaxOptions { UpdateTargetId = "results", OnSuccess = "onSuccess" }))
+        {
+            <input type="text" name="Data" id="value_note" />
+            <input type="submit" value="Add note"/>
+        }
+        <div id="results">
+            @Html.Partial("PartialViewNotes")
+        </div> 
+    </div> 
+  
+    <script>
+        function onSuccess() {
+            $("#value_note").val("");
+        }
+    </script>
+</div>
+</body>
+</html>

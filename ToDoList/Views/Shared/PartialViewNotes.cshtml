@@ -1,0 +1,79 @@
+﻿@model List<ToDoList.Models.Note>
+
+<div id="partial_view">
+    @{
+        //If we have at least one note
+        if (Model.Count > 0)
+        {
+            <h3>Notes</h3>
+            <table border="0" cellspacing="5" class="~/Content/beta" id="table_notes">
+                <tr>
+                    <td><p>№</p></td>
+                    <td><p>Note</p></td>
+                    <td><p>Date</p></td>
+                    <td><p></p></td>
+                </tr>
+                @{
+                    int n = 1;
+                    for(int j = Model.Count-1; j >= 0; j--)
+                    {
+                        <tr>
+                            <td><p>@n</p></td>
+                            <td><div contenteditable><p>@Model[j].Data</p></div></td>
+                            <td><p>@Model[j].PostDate</p></td>
+                            <td> <button type="button" style="height:100%" class="btnRemoveNote">Delete note</button> </td>
+                        </tr>
+                        n++;
+                    }
+                }
+            </table>
+
+            <script>
+                var row;
+                $('#table_notes').find('tr').click(function () {
+                    row = $(this).find('td:first').text();
+                });
+            
+                $(document).off('click').on('click', '.btnRemoveNote', function () {
+                        var $index = $(this).closest("tr")[0].rowIndex;
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("DeleteNote", "Home")',
+                            data: {
+                                rowInTable: $index
+                            },
+                            dataType: "html",
+                            success: function (data) {
+                                //$("#partial_view").load('/Home/getTable');
+                                $('div#partial_view').html(data);
+                            }
+                        });
+                    });
+               
+                        var delayedFn, blurredFrom;
+                        $('table tr').on('blur', 'div', function (event) {
+                            blurredFrom = event.delegateTarget;
+                            delayedFn = setTimeout(function () {
+                                var dataNewNote = document.getElementById("table_notes").rows[row].cells.item(1).textContent;
+                                $.ajax({
+                                    type: "POST",
+                                    url: '@Url.Action("UpdateList", "Home")',
+
+                                    data: {
+                                        note: dataNewNote,
+                                        rowInTable: row
+                                    },
+                                    dataType: "html",
+                                    success: function (data) {
+                                        $('#result').html(data);
+                                    }
+                                });
+                            }, 0);
+                        });
+            </script>
+                    
+                    }
+    }
+</div>
+
+
