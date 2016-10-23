@@ -11,8 +11,10 @@
     <title>Index</title>
     <script src="~/scripts/jquery-3.1.1.min.js"></script>
     <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/scripts/editing-notes/remove-note.js"></script>
+    <script src="~/scripts/editing-notes/update-view.js"></script>
 </head>
-<body>
+<body onload="init()">
 <div align="center">
     <div>
         @using (Ajax.BeginForm("AddNote", new AjaxOptions { UpdateTargetId = "results", OnSuccess = "onSuccess" }))
@@ -24,12 +26,10 @@
             @Html.Partial("PartialViewNotes")
         </div> 
     </div> 
-  
-    <script>
-        function onSuccess() {
-            $("#value_note").val("");
-        }
-    </script>
+
+    @Html.Hidden("urlUpdateList", @Url.Action("UpdateList", "Home"))
+    @Html.Hidden("urlRemoveNote", @Url.Action("DeleteNote", "Home"))
+    @Html.Hidden("urlInit", @Url.Action("UpdatePartialView", "Home"))
 </div>
 </body>
 </html>

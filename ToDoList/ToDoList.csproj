@@ -117,13 +117,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\StyleTable.css" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.22.19-build00125.js" />
     <Content Include="scripts\ai.0.22.19-build00125.min.js" />
     <None Include="Properties\PublishProfiles\ddd.pubxml" />
     <None Include="Properties\PublishProfiles\ToDoList.pubxml" />
     <None Include="scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="scripts\editing-notes\edit-note.js" />
+    <Content Include="scripts\editing-notes\remove-note.js" />
+    <Content Include="scripts\editing-notes\update-view.js" />
     <Content Include="scripts\jquery-3.1.1.js" />
     <Content Include="scripts\jquery-3.1.1.min.js" />
     <Content Include="scripts\jquery-3.1.1.slim.js" />
@@ -160,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,5 +1,6 @@
 ﻿@model List<ToDoList.Models.Note>
 
+<script src="~/scripts/editing-notes/edit-note.js"></script>
 <div id="partial_view">
     @{
         //If we have at least one note
@@ -27,52 +28,7 @@
                     }
                 }
             </table>
-
-            <script>
-                var row;
-                $('#table_notes').find('tr').click(function () {
-                    row = $(this).find('td:first').text();
-                });
-            
-                $(document).off('click').on('click', '.btnRemoveNote', function () {
-                        var $index = $(this).closest("tr")[0].rowIndex;
-                        $.ajax({
-                            type: "POST",
-                            url: '@Url.Action("DeleteNote", "Home")',
-                            data: {
-                                rowInTable: $index
-                            },
-                            dataType: "html",
-                            success: function (data) {
-                                //$("#partial_view").load('/Home/getTable');
-                                $('div#partial_view').html(data);
-                            }
-                        });
-                    });
-               
-                        var delayedFn, blurredFrom;
-                        $('table tr').on('blur', 'div', function (event) {
-                            blurredFrom = event.delegateTarget;
-                            delayedFn = setTimeout(function () {
-                                var dataNewNote = document.getElementById("table_notes").rows[row].cells.item(1).textContent;
-                                $.ajax({
-                                    type: "POST",
-                                    url: '@Url.Action("UpdateList", "Home")',
-
-                                    data: {
-                                        note: dataNewNote,
-                                        rowInTable: row
-                                    },
-                                    dataType: "html",
-                                    success: function (data) {
-                                        $('#result').html(data);
-                                    }
-                                });
-                            }, 0);
-                        });
-            </script>
-                    
-                    }
+         }
     }
 </div>
 

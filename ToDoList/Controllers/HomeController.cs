@@ -39,5 +39,9 @@ namespace ToDoList.Controllers
         {
             return Note.mListNotes.Count - Convert.ToInt32(rowInTable);
         }
+        public ActionResult UpdatePartialView()
+        {
+            return PartialView("PartialViewNotes", Note.mListNotes);
+        }
     }
 }
